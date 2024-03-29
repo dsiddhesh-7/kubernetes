@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: dharma-app
   labels:
-    apps: new-app
+    app: new-app
 spec:
   containers:
   - name: nginx
@@ -15,4 +15,4 @@ spec:
     image: tomcat:latest
     ports:
     - containerPort: 8080
-      prptocol: TCP   
+      protocol: TCP   
