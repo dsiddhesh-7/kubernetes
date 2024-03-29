@@ -1,0 +1,15 @@
+apiversion: v1
+kind: Service
+metadata:
+  name: nodeportsrc
+spec:
+    ports:
+    - port: 80
+      target: 80
+      name: nginx
+      protocol: TCP
+
+    - port: 8080
+      targetPort: 8080
+      name: tomcat
+      protocol: TCP
