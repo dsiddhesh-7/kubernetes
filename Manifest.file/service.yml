@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: nodeportsrc
 spec:
+  selector:
+    app: new-app
+    type: Nodeport
     ports:
     - port: 80
       targetport: 80
