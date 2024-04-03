@@ -8,7 +8,9 @@ spec:
     strategy:
       type: RollingUpdate
       rollingUpdate:
-            maxSurge: 1     
+            maxSurge: 1   
+            maxUnavailable: 
+            1
     selector: 
       matchLabels: 
           app: siddapp
