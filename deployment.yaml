@@ -1,42 +1,29 @@
 apiVersion: apps/v1
 kind:  Deployment
 metadata: 
-  name: siddeploy
+  name: siddhesh
   labels:
-    app: siddapp
+    app: deployapp
 spec:
     strategy:
       type: RollingUpdate
       rollingUpdate:
-            maxSurge: 1   
-            maxUnavailable:  1
-    selector: 
+            maxSurge: 1     
+            maxUnavailable: 1  
+    selector:
       matchLabels: 
-          app: siddapp
-    replicas: 8
+          app: deployapp
+    replicas: 10
     template:
       metadata:
         labels:
-          name: httpdapp
-          app: siddapp
+          name: nginxapp
+          app: deployapp
       spec:
         containers:
-          - name: httpdapplication
+          - name: nginxapp
             image: httpd:latest 
             ports:
                 - containerPort: 80
                   protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: node-service
-spec:
-  type: NodePort
-  selector:
-    app: siddapp
-  ports:
-    - port: 80
-      targetPort: 80
-      name: nginx
-   protocol:  TCP
+                  
