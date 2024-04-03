@@ -1,32 +1,42 @@
 apiVersion: apps/v1
 kind:  Deployment
 metadata: 
-  name: deploy
+  name: sideploy
   labels:
-    app: depapp
+    app: deployapp
 spec:
     strategy:
       type: RollingUpdate
       rollingUpdate:
-            maxSurge: 1     # Maximum number of pods that can be created over the desired replicas
-            maxUnavailable: 1  # Maximum number of pods that can be unavailable during the update
+            maxSurge: 1    
+            maxUnavailable: 1  
     selector: 
-      #matchExpressions:      
-         #  -  { key: app, operator: In , values: [rsapp,  new-app]}
-         #   -  { key: app, operator: Exists}
       matchLabels: 
-          app: depapp
-    replicas: 10
+          app: deployapp
+    replicas: 8
     template:
       metadata:
         labels:
-          name: nginxapp
-          app: depapp
+          name: httpdapp
+          app: deployapp
       spec:
         containers:
-          - name: nginxapp
+          - name: httpdapplication
             image: httpd:latest 
             ports:
                 - containerPort: 80
                   protocol: TCP
-                  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport-service
+spec:
+  type: NodePort
+  selector:
+    app: deployapp
+  ports:
+    - port: 80
+      targetPort: 80
+      name: nginx
+      protocol: TCP
