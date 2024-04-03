@@ -33,12 +33,12 @@ kind: Service
 metadata: 
   name: nodeportservice
 spec:
-  type: Nodeport
+  type: NodePort
   selector:
     app: deployapp
   ports:
    - ports: 80
-     targetport: 80
+     targetPort: 80
      name: nginx
      protocol: TCP     
                   
