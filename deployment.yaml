@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata: 
-  name: nodeport-service
+  name: nodeportservice
 spec:
   type: Nodeport
   selector:
@@ -39,6 +39,6 @@ spec:
   ports:
    - ports: 80
      targetport: 80
-    name: nginx
-    protocol: TCP     
+     name: nginx
+     protocol: TCP     
                   
