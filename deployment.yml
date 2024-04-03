@@ -1,30 +1,32 @@
-
 apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: replica-set
-  labels: 
-    app: deployment-app
-spec: 
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  selector:
-    matchExpressions:
-        - { key: app, operator: In , values: [deployment-app]} 
-  
-  replicas: 4
-  template:
-    metadata:
-      labels:
-        name: nginxapp
-        app: deployment-app
-    spec:
-      containers:
-        - name: nginxapp
-          image: tomcat
-          ports:
-              - containerPort: 80
-                protocol: TCP
+kind:  Deployment
+metadata: 
+  name: deploy
+  labels:
+    app: depapp
+spec:
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+            maxSurge: 1     # Maximum number of pods that can be created over the desired replicas
+            maxUnavailable: 1  # Maximum number of pods that can be unavailable during the update
+    selector: 
+      #matchExpressions:      
+         #  -  { key: app, operator: In , values: [rsapp,  new-app]}
+         #   -  { key: app, operator: Exists}
+      matchLabels: 
+          app: depapp
+    replicas: 10
+    template:
+      metadata:
+        labels:
+          name: nginxapp
+          app: depapp
+      spec:
+        containers:
+          - name: nginxapp
+            image: httpd:latest 
+            ports:
+                - containerPort: 80
+                  protocol: TCP
+                  
