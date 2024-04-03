@@ -9,8 +9,7 @@ spec:
       type: RollingUpdate
       rollingUpdate:
             maxSurge: 1   
-            maxUnavailable: 
-            1
+            maxUnavailable:  1
     selector: 
       matchLabels: 
           app: siddapp
@@ -40,4 +39,4 @@ spec:
     - port: 80
       targetPort: 80
       name: nginx
-      protocol: TCP
+   protocol:  TCP
