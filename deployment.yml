@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind:  Deployment
 metadata: 
-  name: sideploy
+  name: siddeploy
   labels:
-    app: deployapp
+    app: siddapp
 spec:
     strategy:
       type: RollingUpdate
@@ -12,13 +12,13 @@ spec:
             maxUnavailable: 1  
     selector: 
       matchLabels: 
-          app: deployapp
+          app: siddapp
     replicas: 8
     template:
       metadata:
         labels:
           name: httpdapp
-          app: deployapp
+          app: siddapp
       spec:
         containers:
           - name: httpdapplication
@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeport-service
+  name: node-service
 spec:
   type: NodePort
   selector:
-    app: deployapp
+    app: siddapp
   ports:
     - port: 80
       targetPort: 80
